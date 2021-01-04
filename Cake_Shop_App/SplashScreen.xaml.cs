@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace Cake_Shop_App
 {
     /// <summary>
@@ -23,17 +24,21 @@ namespace Cake_Shop_App
     /// </summary>
     public partial class SplashScreen : Window
     {
+      
         private Random _rng = new Random();
-        ObservableCollection<Product> _products;
-        ObservableCollection<Product> _product;
+        
 
         DispatcherTimer dTimer = new DispatcherTimer();
         string sFile = "";
         string sBackground = "";
         bool flag = true;
-
+        cakeshopdatabaseEntities db = new cakeshopdatabaseEntities();
+        List<PRODUCT> _products;
+        List<PRODUCT> _product;
+        List<PRODUCT_IMAGES> _images;
         public SplashScreen()
         {
+            
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             sFile = $"{folder}Check.txt";
             var data = File.ReadAllText(sFile);
@@ -50,7 +55,9 @@ namespace Cake_Shop_App
                 dTimer.Interval = new TimeSpan(0, 0, 60);
                 dTimer.Start();
             }
+            
         }
+        
         private void dTimer_Tick(object sender, EventArgs e)
         {
             if (flag == true)
@@ -61,50 +68,50 @@ namespace Cake_Shop_App
                 this.Close();
             }
         }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             var folder = AppDomain.CurrentDomain.BaseDirectory;
             var BgFile = $"{folder}Background\\";
-            var direcFile = $"{folder}Cakes.txt";
-            int lineCount = File.ReadLines(direcFile).Count();
-            var database = File.ReadAllLines(direcFile);
-            int count = lineCount / 3;
-            _products = new ObservableCollection<Product>();
-            for (int i = 0; i < count; i++)
-            {
-                var line1 = database[i * 3];
-                var line2 = database[i * 3 + 1];
-                var line3 = database[i * 3 + 2];
-                var product = new Product()
-                {
-                    Name = line1,
-                    Avatar = line2,
-                    Description = line3
-                };
-                _products.Add(product);
-            }
+            var ImageFile = $"{folder}Images\\";
+            var query = from s in db.PRODUCTS select s;
+            _products = query.ToList();
+       
             var k = _rng.Next(_products.Count);
+            k++;
             var t = _rng.Next(3);
-            _product = new ObservableCollection<Product>();
-            _product.Add(_products[k]);
-            sFile = $"{folder}Images\\{_products[k].Avatar}";
+            var pickup = from s in db.PRODUCTS where s.ProductID == k select s;
+            _product = pickup.ToList();
+            var Img = (from s in db.PRODUCT_IMAGES where s.ProductID == k select s).Take(1).Single();
+           // _images = Img.ToList();
+            
+          //  _product = pickup.ToString;
+          //    _product = new ObservableCollection<Product>();
+          //    _product.Add(_products[k]);
+              sFile = $"{folder}Images\\{Img.ImagePath}";
             sBackground = $"{BgFile}background_{t}.jpg";
             BackgoundProductImg.ImageSource = new BitmapImage(new Uri(sFile));
             BackgroundImg.ImageSource = new BitmapImage(new Uri(sBackground));
             CakeIntroduce.ItemsSource = _product;
+           
         }
         private void Check_Unchecked(object sender, RoutedEventArgs e)
         {
+           
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             sFile = $"{folder}Check.txt";
             File.Create(sFile).Close();
+            
         }
 
         private void Check_Checked(object sender, RoutedEventArgs e)
         {
+            
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             sFile = $"{folder}Check.txt";
             File.AppendAllText(sFile, "checked");
+
         }
 
         private void Continue_Click(object sender, RoutedEventArgs e)
