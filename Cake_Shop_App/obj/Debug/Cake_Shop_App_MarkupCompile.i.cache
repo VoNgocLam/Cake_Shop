@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\App.xaml
-2-972578038
-2-748667605
-16159184152
+9-1524598006
+2-1362472337
+252006733174
 20-1239172497
-MainWindow.xaml;SplashScreen.xaml;
+MainWindow.xaml;SplashScreen.xaml;UCCart.xaml;UCEditProduct.xaml;UCListOrders.xaml;UCNewProduct.xaml;UCProductDetail.xaml;UCProducts.xaml;UCStatisTical.xaml;
 
-False
+True
 

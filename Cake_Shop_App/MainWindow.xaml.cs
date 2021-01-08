@@ -24,5 +24,183 @@ namespace Cake_Shop_App
         {
             InitializeComponent();
         }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+        }
+
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (mainWindow.ActualWidth == 1400)
+                {
+                    this.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }   
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var fore = (Brush)converter.ConvertFromString("white");
+            var border = (Brush)converter.ConvertFromString("Transparent");
+            ProductButton.Background = brush;
+            ProductButton.Foreground = fore;
+            ProductButton.BorderBrush = border;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCProducts());
+        }
+
+        private void ProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            var white = (Brush)converter.ConvertFromString("white");
+            var black = (Brush)converter.ConvertFromString("black");
+            var transparent = (Brush)converter.ConvertFromString("Transparent");
+            ProductButton.Background = brush;
+            ProductButton.Foreground = white;
+            ProductButton.BorderBrush = transparent;
+            CreateButton.Background = transparent;
+            CreateButton.Foreground = black;
+            CreateButton.BorderBrush = border;
+            StatisticalButton.Background = transparent;
+            StatisticalButton.Foreground = black;
+            StatisticalButton.BorderBrush = border;
+            ListButton.Background = transparent;
+            ListButton.Foreground = black;
+            ListButton.BorderBrush = border;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCProducts());
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            var white = (Brush)converter.ConvertFromString("white");
+            var black = (Brush)converter.ConvertFromString("black");
+            var transparent = (Brush)converter.ConvertFromString("Transparent");
+            ProductButton.Background = transparent;
+            ProductButton.Foreground = black;
+            ProductButton.BorderBrush = border;
+            CreateButton.Background = brush;
+            CreateButton.Foreground = white;
+            CreateButton.BorderBrush = transparent;
+            StatisticalButton.Background = transparent;
+            StatisticalButton.Foreground = black;
+            StatisticalButton.BorderBrush = border;
+            ListButton.Background = transparent;
+            ListButton.Foreground = black;
+            ListButton.BorderBrush = border;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCNewProduct());
+        }
+
+        private void StatisticalButton_Click(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            var white = (Brush)converter.ConvertFromString("white");
+            var black = (Brush)converter.ConvertFromString("black");
+            var transparent = (Brush)converter.ConvertFromString("Transparent");
+            ProductButton.Background = transparent;
+            ProductButton.Foreground = black;
+            ProductButton.BorderBrush = border;
+            CreateButton.Background = transparent;
+            CreateButton.Foreground = black;
+            CreateButton.BorderBrush = border;
+            StatisticalButton.Background = brush;
+            StatisticalButton.Foreground = white;
+            StatisticalButton.BorderBrush = transparent;
+            ListButton.Background = transparent;
+            ListButton.Foreground = black;
+            ListButton.BorderBrush = border;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCStatisTical());
+        }
+
+        private void ListButton_Click(object sender, RoutedEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            var white = (Brush)converter.ConvertFromString("white");
+            var black = (Brush)converter.ConvertFromString("black");
+            var transparent = (Brush)converter.ConvertFromString("Transparent");
+            ProductButton.Background = transparent;
+            ProductButton.Foreground = black;
+            ProductButton.BorderBrush = border;
+            CreateButton.Background = transparent;
+            CreateButton.Foreground = black;
+            CreateButton.BorderBrush = border;
+            StatisticalButton.Background = transparent;
+            StatisticalButton.Foreground = black;
+            StatisticalButton.BorderBrush = border;
+            ListButton.Background = brush;
+            ListButton.Foreground = white;
+            ListButton.BorderBrush = transparent;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCListOrders());
+        }
+
+        private void CartButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var black = (Brush)converter.ConvertFromString("black");
+            var transparent = (Brush)converter.ConvertFromString("Transparent");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            ProductButton.Background = transparent;
+            ProductButton.Foreground = black;
+            ProductButton.BorderBrush = border;
+            CreateButton.Background = transparent;
+            CreateButton.Foreground = black;
+            CreateButton.BorderBrush = border;
+            StatisticalButton.Background = transparent;
+            StatisticalButton.Foreground = black;
+            StatisticalButton.BorderBrush = border;
+            ListButton.Background = transparent;
+            ListButton.Foreground = black;
+            ListButton.BorderBrush = border;
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCCart());
+
+        }
     }
+
+
 }

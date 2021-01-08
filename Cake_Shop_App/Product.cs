@@ -19,20 +19,22 @@ namespace Cake_Shop_App
         {
             this.ORDER_PRODUCT = new HashSet<ORDER_PRODUCT>();
             this.PRODUCT_IMAGES = new HashSet<PRODUCT_IMAGES>();
-            this.CATEGORIES = new HashSet<CATEGORy>();
         }
     
         public int ProductID { get; set; }
+        public Nullable<int> CategoryID { get; set; }
         public string ProductName { get; set; }
+        public string CategoryName { get; set; }
         public string productTitle { get; set; }
         public string ProductDescription { get; set; }
         public Nullable<int> Price { get; set; }
-    
+        public string ProductAvatar { get; set; }
+        public List<String> listImages { get; set; }
+        public virtual CATEGORy CATEGORy { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDER_PRODUCT> ORDER_PRODUCT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT_IMAGES> PRODUCT_IMAGES { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CATEGORy> CATEGORIES { get; set; }
     }
 }

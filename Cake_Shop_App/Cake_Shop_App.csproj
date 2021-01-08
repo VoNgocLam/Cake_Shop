@@ -74,40 +74,63 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CATEGORy.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database.Context.cs">
+    <Compile Include="DatabaseFirst.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Database.Context.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database.cs">
+    <Compile Include="DatabaseFirst.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database.Designer.cs">
+    <Compile Include="DatabaseFirst.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Database.edmx</DependentUpon>
+      <DependentUpon>DatabaseFirst.edmx</DependentUpon>
     </Compile>
     <Compile Include="ORDER.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
     <Compile Include="ORDER_PRODUCT.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
+    <Compile Include="PagingInfo.cs" />
+    <Compile Include="PriceConverter.cs" />
     <Compile Include="PRODUCT.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
     <Compile Include="PRODUCT_IMAGES.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UCCart.xaml.cs">
+      <DependentUpon>UCCart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCEditProduct.xaml.cs">
+      <DependentUpon>UCEditProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCListOrders.xaml.cs">
+      <DependentUpon>UCListOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCNewProduct.xaml.cs">
+      <DependentUpon>UCNewProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCProductDetail.xaml.cs">
+      <DependentUpon>UCProductDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCProducts.xaml.cs">
+      <DependentUpon>UCProducts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UCStatisTical.xaml.cs">
+      <DependentUpon>UCStatisTical.xaml</DependentUpon>
+    </Compile>
     <Compile Include="USER.cs">
-      <DependentUpon>Database.tt</DependentUpon>
+      <DependentUpon>DatabaseFirst.tt</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -122,6 +145,34 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCCart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCEditProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCListOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCNewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCProductDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCProducts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UCStatisTical.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,12 +195,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Database.edmx">
+    <EntityDeploy Include="DatabaseFirst.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Database.Designer.cs</LastGenOutput>
+      <LastGenOutput>DatabaseFirst.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Database.edmx.diagram">
-      <DependentUpon>Database.edmx</DependentUpon>
+    <None Include="DatabaseFirst.edmx.diagram">
+      <DependentUpon>DatabaseFirst.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -161,22 +212,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Database.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Database.edmx</DependentUpon>
-      <LastGenOutput>Database.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\background_0.jpg" />
+    <Resource Include="Assets\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\shopping-cart.png" />
+    <Resource Include="Assets\edit.png" />
+    <Resource Include="Assets\cancel.png" />
+    <Resource Include="Assets\save.png" />
+    <Content Include="DatabaseFirst.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DatabaseFirst.edmx</DependentUpon>
+      <LastGenOutput>DatabaseFirst.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DatabaseFirst.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DatabaseFirst.edmx</DependentUpon>
+      <LastGenOutput>DatabaseFirst.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

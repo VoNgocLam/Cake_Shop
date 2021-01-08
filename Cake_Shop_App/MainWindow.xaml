@@ -5,8 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cake_Shop_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="MainWindow" Loaded="Window_Loaded" Height="800" Width="1400" UseLayoutRounding="False" RenderOptions.BitmapScalingMode="HighQuality" WindowStartupLocation="CenterScreen">
+    <DockPanel Name="mainWindow" LastChildFill="True">
+        <Grid Name="TopGrid" DockPanel.Dock="Top" Height="50" VerticalAlignment="Top" Background="#dfdddf">
+
+            <Label Name="TopLabel" HorizontalAlignment="Center" Content="Paradise Cake" Height="50" FontSize="20" VerticalContentAlignment="Center" Foreground="#676767"/>
+
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                <Button  Name="ExitButton" Click="ExitButton_Click" Style="{StaticResource MaterialDesignFloatingActionButton}" Visibility="Visible" Height="15" Width="15"  BorderBrush="{x:Null}" Background="#fc605c" Margin="10,0,0,0">
+                    <materialDesign:PackIcon Kind="Close" Width="10" Height="10" Foreground="#7e0509" />
+                </Button>
+
+                <Button Name="MinimizeButton" Click="MinimizeButton_Click"  Style="{StaticResource MaterialDesignFloatingActionButton}" Visibility="Visible" Height="15" Width="15"  BorderBrush="{x:Null}" Background="#fec041" Margin="10,0,0,0">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Width="10" Height="10" Foreground="#985712" />
+                </Button>
+
+                <Button Name="MaximizeButton" Click="MaximizeButton_Click" Style="{StaticResource MaterialDesignFloatingActionButton}" Visibility="Visible" Height="15" Width="15"  BorderBrush="{x:Null}" Background="#d1ddd1" Margin="10,0,00,0">
+                    <materialDesign:PackIcon Kind="WindowMaximize" Width="10" Height="10" Foreground="#8d908d" />
+                </Button>
+
+            </WrapPanel>
+
+            <Border x:Name="CartButton" MouseDown="CartButton_MouseDown" Width="30" Height="30" HorizontalAlignment="Right" Margin="0,0,20,0"  BorderBrush="Transparent" BorderThickness="0" RenderOptions.BitmapScalingMode="HighQuality">
+                <Border.Background>
+                    <ImageBrush ImageSource="Assets/shopping-cart.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Border.Background>
+            </Border>
+            
+
+        </Grid>
+
+        <Grid Name="Home" Background="#ececec">
+            <Border Width="1350" Height="680" Background="#e3e3e3" Margin="0,20,0,0" CornerRadius="10" >
+                <DockPanel>
+                    <Border Width="800" Height="40" DockPanel.Dock="Top" Background="#ffff" VerticalAlignment="Top" Margin="0,-20,0,0" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="ProductButton" Click="ProductButton_Click" Width="200" Height="40" Content="Sản phẩm" FontFamily="Bahnschrift Light" FontSize="16" Foreground="Black" Background="Transparent" BorderBrush="#e5e5e5" BorderThickness="0.2"/>
+                            <Button Name="CreateButton" Click="CreateButton_Click" Width="200" Height="40" Content="Thêm mới sản phẩm" FontFamily="Bahnschrift Light" FontSize="16" Foreground="Black" Background="Transparent" BorderBrush="#e5e5e5" BorderThickness="0.2"/>
+                            <Button Name="StatisticalButton" Click="StatisticalButton_Click" Width="200" Height="40" Content="Thống kê" FontFamily="Bahnschrift Light" FontSize="16" Foreground="Black" Background="Transparent" BorderBrush="#e5e5e5" BorderThickness="0.2"/>
+                            <Button Name="ListButton" Click="ListButton_Click" Width="200" Height="40" Content="Danh sách đơn hàng" FontFamily="Bahnschrift Light" FontSize="16" Foreground="Black" Background="Transparent" BorderBrush="#e5e5e5" BorderThickness="0.2"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border HorizontalAlignment="Left" Width="1290" Height="600" Background="White" CornerRadius="10" Margin="30,0,0,0">
+                        <DockPanel LastChildFill="True">
+                            <Grid Name="WorkScreen">
+                                
+                            </Grid>
+                        </DockPanel>
+                    </Border>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+    </DockPanel>
 </Window>

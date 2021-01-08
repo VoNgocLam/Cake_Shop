@@ -32,10 +32,10 @@ namespace Cake_Shop_App
         string sFile = "";
         string sBackground = "";
         bool flag = true;
-        cakeshopdatabaseEntities db = new cakeshopdatabaseEntities();
+        cakeshopdatabaseEntities1 db = new cakeshopdatabaseEntities1();
         List<PRODUCT> _products;
         List<PRODUCT> _product;
-        List<PRODUCT_IMAGES> _images;
+
         public SplashScreen()
         {
             
@@ -84,11 +84,6 @@ namespace Cake_Shop_App
             var pickup = from s in db.PRODUCTS where s.ProductID == k select s;
             _product = pickup.ToList();
             var Img = (from s in db.PRODUCT_IMAGES where s.ProductID == k select s).Take(1).Single();
-           // _images = Img.ToList();
-            
-          //  _product = pickup.ToString;
-          //    _product = new ObservableCollection<Product>();
-          //    _product.Add(_products[k]);
               sFile = $"{folder}Images\\{Img.ImagePath}";
             sBackground = $"{BgFile}background_{t}.jpg";
             BackgoundProductImg.ImageSource = new BitmapImage(new Uri(sFile));

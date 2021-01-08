@@ -60,8 +60,6 @@
                     </Border>
                 </StackPanel>
 
-
-
             </Grid>
             
             <Grid Grid.Row="1">
