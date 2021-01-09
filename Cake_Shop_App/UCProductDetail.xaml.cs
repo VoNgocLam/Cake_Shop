@@ -38,7 +38,7 @@ namespace Cake_Shop_App
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _product.listImages = new List<string>();
+            _product.listImages = new BindingList<string>();
             string folder = AppDomain.CurrentDomain.BaseDirectory;
             using ( var context = new cakeshopdatabaseEntities1())
             {

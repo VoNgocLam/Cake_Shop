@@ -42,12 +42,10 @@ namespace Cake_Shop_App
     }
     public partial class UCProducts : UserControl
     {
+        List<PRODUCT> _product;
         List<PRODUCT> _products;
-        List<PRODUCT> _cakeproducts;
-        List<PRODUCT> _breadproducts;
-        List<PRODUCT> _bangelproducts;
-        List<PRODUCT> _cupcakeproducts;
         List<CATEGORy> _cate;
+        
         List<PRODUCT_IMAGES> _images;
         PagingInfo pageno = new PagingInfo();
 
@@ -59,11 +57,10 @@ namespace Cake_Shop_App
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             string folder = AppDomain.CurrentDomain.BaseDirectory;
-            tvCategoryProduct cate1 = new tvCategoryProduct() { Name = "Bánh Kem" };
-            tvCategoryProduct cate2 = new tvCategoryProduct() { Name = "Bánh Mì" };
-            tvCategoryProduct cate3 = new tvCategoryProduct() { Name = "Bánh Mì Vòng" };
-            tvCategoryProduct cate4 = new tvCategoryProduct() { Name = "Bánh Nướng Nhỏ" };
-            tvCategoryProduct cate5 = new tvCategoryProduct() { Name = "Tất cả sản phẩm" };
+            List<tvCategoryProduct> cate = new List<tvCategoryProduct>(); 
+                      
+            tvCategoryProduct cate1 = new tvCategoryProduct() { Name = "Tất cả sản phẩm" };
+
 
             using (var context = new cakeshopdatabaseEntities1())
             {
@@ -74,57 +71,32 @@ namespace Cake_Shop_App
                 {
                     var avatar = (from s in _images where s.ProductID == _products[i].ProductID select s).Take(1).Single();
                     _products[i].ProductAvatar = $"{folder}Images\\{avatar.ImagePath}";
-                    cate5.dataProducts.Add(new dataProduct() { Name = _products[i].ProductName });
+                    cate1.dataProducts.Add(new dataProduct() { Name = _products[i].ProductName });
                 }
                 
                 foreach (var category in _cate)
                 {
-                    if (category.CategoryName == "Bánh Kem")
+                    tvCategoryProduct cates = new tvCategoryProduct() { Name = category.CategoryName };
+                    cates.Name = category.CategoryName;
+                    var query = from s in _products where s.CategoryID == category.CategoryID select s;
+                    _product = query.ToList();
+                    foreach ( var product in _product)
                     {
-                        var query = from s in _products where s.CategoryID == category.CategoryID select s;
-                        _cakeproducts = query.ToList();
-                        foreach (var product in _cakeproducts)
-                        {
-                            cate1.dataProducts.Add(new dataProduct() { Name = product.ProductName });
-                        }
+                        cates.dataProducts.Add(new dataProduct() { Name = product.ProductName });
                     }
-                    if (category.CategoryName == "Bánh Mì")
-                    {
-                        var query = from s in _products where s.CategoryID == category.CategoryID select s;
-                        _breadproducts = query.ToList();
-                        foreach (var product in _breadproducts)
-                        {
-                            cate2.dataProducts.Add(new dataProduct() { Name = product.ProductName });
-                        }
-                    }
-                    if (category.CategoryName == "Bánh Mì Vòng")
-                    {
-                        var query = from s in _products where s.CategoryID == category.CategoryID select s;
-                        _bangelproducts = query.ToList();
-                        foreach (var product in _bangelproducts)
-                        {
-                            cate3.dataProducts.Add(new dataProduct() { Name = product.ProductName });
-                        }
-                    }
-                    if (category.CategoryName == "Bánh Nướng Nhỏ")
-                    {
-                        var query = from s in _products where s.CategoryID == category.CategoryID select s;
-                        _cupcakeproducts = query.ToList();
-                        foreach (var product in _cupcakeproducts)
-                        {
-                            cate4.dataProducts.Add(new dataProduct() { Name = product.ProductName });
-                        }
-                    }
-                };
+                    cate.Add(cates);
+                } 
             };
+        
             List<tvCategoryProduct> dTreeView = new List<tvCategoryProduct>();
 
-            dTreeView.Add(cate5);
             dTreeView.Add(cate1);
-            dTreeView.Add(cate2);
-            dTreeView.Add(cate3);
-            dTreeView.Add(cate4);
 
+            foreach ( var cateName in cate)
+            {
+                dTreeView.Add(cateName);
+            }
+            
             dataTreeview.ItemsSource = dTreeView;
 
             pageno.CurrentPage = 1;
@@ -234,24 +206,21 @@ namespace Cake_Shop_App
                 else
                 {
                     _products.Clear();
-                    if (item.Name == "Bánh Kem")
-                    {
-                        _products = _cakeproducts.ToList();
+                    string folder = AppDomain.CurrentDomain.BaseDirectory;
+                    using (var context = new cakeshopdatabaseEntities1())
+                   {
+                        var queryCate = (from c in _cate where c.CategoryName == item.Name select c).Single();
+                        var queryProduct = from s in context.PRODUCTS where s.CategoryID == queryCate.CategoryID select s;
+                        _products = queryProduct.ToList();
+                        _images = context.PRODUCT_IMAGES.ToList();
+                        for (int i =0; i< _products.Count(); i++)
+                        {
+                            var avatar = (from s in _images where s.ProductID == _products[i].ProductID select s).Take(1).Single();
+                            _products[i].ProductAvatar = $"{folder}Images\\{avatar.ImagePath}";
+                        }
                     }
-                    if (item.Name == "Bánh Mì")
-                    {
-                        _products = _breadproducts.ToList();
-                    }
-                    if (item.Name == "Bánh Mì Vòng")
-                    {
-                        _products = _bangelproducts.ToList();
-                    }
-                    if (item.Name == "Bánh Nướng Nhỏ")
-                    {
-                        _products = _cupcakeproducts.ToList();
-                    }
-                }
-               
+                   
+                }              
 
                 pageno.CurrentPage = 1;
                 pageno.RowsPerPage = 10;
