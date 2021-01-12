@@ -95,7 +95,8 @@ namespace Cake_Shop_App
                 var order = new ORDER_PRODUCT()
                 {
                     ProductID = _product.ProductID,
-                    Quantity = 1
+                    Quantity = 1,
+                    SinglePrice = _product.Price
                 };
                 _orders.Add(order);
             }

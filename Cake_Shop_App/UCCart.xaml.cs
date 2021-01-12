@@ -30,8 +30,10 @@ namespace Cake_Shop_App
         ObservableCollection<PRODUCT> _products;
         List<ORDER_PRODUCT> _orders;
         int? _totalCash;
+        int? urserID;
+        int? orderID;
         double totalCash;
-        
+        List<USER> _users;
         public UCCart(ref List<ORDER_PRODUCT> o)
         {
             InitializeComponent();
@@ -40,37 +42,48 @@ namespace Cake_Shop_App
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _totalCash = 0;
-            _products = new ObservableCollection<PRODUCT>();
-            string folder = AppDomain.CurrentDomain.BaseDirectory;
-            if (_orders.Count > 0 )
+            if(_orders.Count == 0)
             {
-                InfoUser.Visibility = Visibility.Visible;
+                Suspend.Visibility = Visibility.Visible;
+                Active.Visibility = Visibility.Collapsed;
             }
-
-            using (var context = new cakeshopdatabaseEntities1())
+            else
             {
-
-                for(int i = 0; i < _orders.Count; i++)
+                Suspend.Visibility = Visibility.Collapsed;
+                Active.Visibility = Visibility.Visible;
+                _totalCash = 0;
+                _products = new ObservableCollection<PRODUCT>();
+                string folder = AppDomain.CurrentDomain.BaseDirectory;
+                if (_orders.Count > 0)
                 {
-                    var productID = _orders[i].ProductID;
-                    var productQuery = (from s in context.PRODUCTS where s.ProductID == productID select s).Single();
-                    var avatar = (from a in context.PRODUCT_IMAGES where a.ProductID == productID select a).Take(1).Single();
-                    _products.Add(productQuery);
-                    _products[i].ProductAvatar = $"{folder}Images\\{avatar.ImagePath}";
-                    _products[i].Quantity = _orders[i].Quantity;
-                    _totalCash += _products[i].Quantity * _products[i].Price;
-                }               
-            };
+                    InfoUser.Visibility = Visibility.Visible;
+                }
 
-            if(_totalCash.HasValue)
-            {
-                totalCash = _totalCash.Value;
+                using (var context = new cakeshopdatabaseEntities1())
+                {
+
+                    for (int i = 0; i < _orders.Count; i++)
+                    {
+                        var productID = _orders[i].ProductID;
+                        var productQuery = (from s in context.PRODUCTS where s.ProductID == productID select s).Single();
+                        var avatar = (from a in context.PRODUCT_IMAGES where a.ProductID == productID select a).Take(1).Single();
+                        _products.Add(productQuery);
+                        _products[i].ProductAvatar = $"{folder}Images\\{avatar.ImagePath}";
+                        _products[i].Quantity = _orders[i].Quantity;
+                        _totalCash += _products[i].Quantity * _products[i].Price;
+                    }
+                };
+
+                if (_totalCash.HasValue)
+                {
+                    totalCash = _totalCash.Value;
+                }
+                _total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
+                total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
+                lbProductCount.Text = _orders.Count.ToString();
+                dataListView.ItemsSource = _products;
             }
-            _total.Content = totalCash.ToString("N0").Replace(",",".") + " VNĐ";
-            total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
-            lbProductCount.Text = _orders.Count.ToString();
-            dataListView.ItemsSource = _products;
+           
         }
 
         private void Minus_MouseDown(object sender, MouseButtonEventArgs e)
@@ -96,7 +109,8 @@ namespace Cake_Shop_App
             }
             if (_orders.Count == 0)
             {
-                InfoUser.Visibility = Visibility.Collapsed;
+                Suspend.Visibility = Visibility.Visible;
+                Active.Visibility = Visibility.Collapsed;
             }
             _total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
             total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
@@ -123,6 +137,12 @@ namespace Cake_Shop_App
             dataListView.Items.Refresh();
         }
 
+        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        {
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCProducts(ref _orders));
+        }
+
         private void OrderButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (tbUserName.Text == "")
@@ -135,8 +155,62 @@ namespace Cake_Shop_App
             }
             else
             {
+                DateTime localDate = DateTime.Now;
+                using ( var context = new cakeshopdatabaseEntities1())
+                {
+                    _users = context.USERS.ToList();
+                    bool flag = true;
+                   
+                    foreach ( var user in _users)
+                    {
+                        if (user.UserPhone == tbUserPhone.Text)
+                        {
+                            flag = false;
+                            urserID = user.UserID;
+                            break;
+                        }
+                    }
 
+                    if(flag)
+                    {
+                        var newUser = new USER()
+                        {
+                            UserName = tbUserName.Text,
+                            UserPhone = tbUserPhone.Text
+                        };
+                        context.USERS.Add(newUser);
+                        context.SaveChanges();
+                        var user = (from s in context.USERS where s.UserPhone == tbUserPhone.Text select s).Single();
+                        urserID = user.UserID;
+                    }
+
+                    if(urserID.HasValue)
+                    {
+                        var newOrder = new ORDER()
+                        {
+                            UserID = urserID,
+                            Date = localDate
+                        };
+                        context.ORDERS.Add(newOrder);
+                        context.SaveChanges();
+                       // var order = (from s in context.ORDERS where s.Date == newOrder.Date select s).Single();
+                        orderID = order.OrderID;
+                    }
+                   
+                    if(orderID.HasValue)
+                    {
+                        foreach (var detailOrder in _orders)
+                        {
+                            detailOrder.OrderID = orderID.Value;
+                            context.ORDER_PRODUCT.Add(detailOrder);
+                            context.SaveChanges();
+                        }
+                    }
+
+                }
             }
         }
+
+     
     }
 }
