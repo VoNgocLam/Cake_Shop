@@ -43,6 +43,11 @@ namespace Cake_Shop_App
             _totalCash = 0;
             _products = new ObservableCollection<PRODUCT>();
             string folder = AppDomain.CurrentDomain.BaseDirectory;
+            if (_orders.Count > 0 )
+            {
+                InfoUser.Visibility = Visibility.Visible;
+            }
+
             using (var context = new cakeshopdatabaseEntities1())
             {
 
@@ -89,6 +94,10 @@ namespace Cake_Shop_App
             {
                 totalCash = _totalCash.Value;
             }
+            if (_orders.Count == 0)
+            {
+                InfoUser.Visibility = Visibility.Collapsed;
+            }
             _total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
             total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
             lbProductCount.Text = _orders.Count.ToString();
@@ -112,6 +121,22 @@ namespace Cake_Shop_App
             total.Content = totalCash.ToString("N0").Replace(",", ".") + " VNĐ";
             lbProductCount.Text = _orders.Count.ToString();
             dataListView.Items.Refresh();
+        }
+
+        private void OrderButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (tbUserName.Text == "")
+            {
+                MessageBox.Show("Họ tên khách hàng không được bỏ trống");
+            }
+            else if (tbUserPhone.Text=="")
+            {
+                MessageBox.Show("Số diện thoại không được bỏ trống");
+            }
+            else
+            {
+
+            }
         }
     }
 }
