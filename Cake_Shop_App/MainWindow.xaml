@@ -29,11 +29,7 @@
 
                 <Button Name="MinimizeButton" Click="MinimizeButton_Click"  Style="{StaticResource MaterialDesignFloatingActionButton}" Visibility="Visible" Height="15" Width="15"  BorderBrush="{x:Null}" Background="#fec041" Margin="10,0,0,0">
                     <materialDesign:PackIcon Kind="WindowMinimize" Width="10" Height="10" Foreground="#985712" />
-                </Button>
-
-                <Button Name="MaximizeButton" Click="MaximizeButton_Click" Style="{StaticResource MaterialDesignFloatingActionButton}" Visibility="Visible" Height="15" Width="15"  BorderBrush="{x:Null}" Background="#d1ddd1" Margin="10,0,00,0">
-                    <materialDesign:PackIcon Kind="WindowMaximize" Width="10" Height="10" Foreground="#8d908d" />
-                </Button>
+                </Button>                
 
             </WrapPanel>
 

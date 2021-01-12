@@ -36,11 +36,13 @@ namespace Cake_Shop_App
         List<String> imagesDeleted = new List<String>();
         List<PRODUCT_IMAGES> _img;
         List<PRODUCT_IMAGES> _flag;
+        List<ORDER_PRODUCT> _orders;
 
-        public UCEditProduct(PRODUCT p)
+        public UCEditProduct(PRODUCT p, ref List<ORDER_PRODUCT> o)
         {
             InitializeComponent();
             _product = p;
+            _orders = o;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -60,7 +62,7 @@ namespace Cake_Shop_App
         private void imgCancel_MouseDown(object sender, MouseButtonEventArgs e)
         {
             WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCProductDetail(_product));
+            WorkScreen.Children.Add(new UCProductDetail(_product, ref _orders));
         }
              
         private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,26 +121,27 @@ namespace Cake_Shop_App
                 MessageBox.Show("Tên sản phẩm không được bỏ trống");
             }
 
-            if (tbTitle.Text.Trim() == "")
+            else if (tbTitle.Text.Trim() == "")
             {
                 MessageBox.Show("Tiêu đề không được bỏ trống");
             }
 
-            if (tbPrice.Text.Trim() == "")
+            else if (tbPrice.Text.Trim() == "")
             {
                 MessageBox.Show("Giá tiền không được bỏ trống");
             }
 
-            if (tbCategory.Text.Trim() == "")
+            else if (tbCategory.Text.Trim() == "")
             {
                 MessageBox.Show("Danh mục không được bỏ trống");
             }
-            if (_products[0].listImages.Count == 0)
+
+            else if (_products[0].listImages.Count == 0)
             {
                 MessageBox.Show("Hình ảnh không được bỏ trống");
             }
 
-            if (tbName.Text.Trim() != "" && tbTitle.Text.Trim() != "" && tbPrice.Text.Trim() != "" && tbCategory.Text.Trim() != null && _products[0].listImages.Count != 0)
+            else
             {
                 using ( var context = new cakeshopdatabaseEntities1())
                 {
@@ -176,9 +179,10 @@ namespace Cake_Shop_App
                     _product = _resultProducts[0];
                     _product.ProductAvatar = $"{folder}Images\\{avatar.ImagePath}";
                 }
+                WorkScreen.Children.Clear();
+                WorkScreen.Children.Add(new UCProductDetail(_product,ref _orders));
             }
-            WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCProductDetail(_product));
+           
         }
     }             
 }

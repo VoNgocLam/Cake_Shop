@@ -18,22 +18,28 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Globalization;
 
+
 namespace Cake_Shop_App
 {
     /// <summary>
     /// Interaction logic for UCProductDetail.xaml
     /// </summary>
+    /// 
+
     public partial class UCProductDetail : UserControl
     {
+
         public PRODUCT _product;
         List<PRODUCT> _produts;
         List<CATEGORy> _cate;
         List<PRODUCT_IMAGES> _img;
-        int count = 1;
-        public UCProductDetail(PRODUCT p)
+        List<ORDER_PRODUCT> _orders;
+
+        public UCProductDetail(PRODUCT p, ref List<ORDER_PRODUCT> o)
         {
             InitializeComponent();
             _product = p;
+            _orders = o;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -64,30 +70,38 @@ namespace Cake_Shop_App
             this.DataContext = _product;
             PreviewPhoto.ItemsSource = _produts;
             Category.Content = _product.CategoryName;
-        }
-
-        private void Minus_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            count = int.Parse(Number.Text.ToString());
-            count--;
-            if (count < 1)
-            {
-                count = 1;
-            }
-            Number.Text = count.ToString();
-        }
-
-        private void Plus_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var count = int.Parse(Number.Text.ToString());
-            count++;
-            Number.Text = count.ToString();
-        }
+        }    
 
         private void editProduct_MouseDown(object sender, MouseButtonEventArgs e)
         {
             WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCEditProduct(_product));
+            WorkScreen.Children.Add(new UCEditProduct(_product, ref _orders));
+        }
+
+        private void OrderButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            bool flag = true;
+
+            foreach (var o in _orders)
+            {
+                if (o.ProductID == _product.ProductID)
+                {
+                    flag = false;
+                    break;
+                };
+            };
+            if(flag)
+            {
+                var order = new ORDER_PRODUCT()
+                {
+                    ProductID = _product.ProductID,
+                    Quantity = 1
+                };
+                _orders.Add(order);
+            }
+            WorkScreen.Children.Clear();
+            WorkScreen.Children.Add(new UCCart(ref _orders));
+           
         }
     }
 }

@@ -19,13 +19,13 @@ using System.Threading;
 using System.Globalization;
 
 
-
 namespace Cake_Shop_App
 {
     /// <summary>
     /// Interaction logic for UCProducts.xaml
     /// </summary>
     /// 
+   
     public class dataProduct
     {
         public string Name { get; set; }
@@ -45,13 +45,16 @@ namespace Cake_Shop_App
         List<PRODUCT> _product;
         List<PRODUCT> _products;
         List<CATEGORy> _cate;
-        
+        List<ORDER_PRODUCT> _orders;
+
+
         List<PRODUCT_IMAGES> _images;
         PagingInfo pageno = new PagingInfo();
 
-        public UCProducts()
+        public UCProducts(ref List<ORDER_PRODUCT> o)
         {
             InitializeComponent();
+            _orders = o;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -270,13 +273,7 @@ namespace Cake_Shop_App
                 PrevButton.Visibility = Visibility.Hidden;
                 dataListView.ItemsSource = product;
             }
-        }
-
-        private void OrderButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-              
+        }      
 
         private void dataListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -284,8 +281,39 @@ namespace Cake_Shop_App
             if (item != null)
             {
                 WorkScreen.Children.Clear();
-                WorkScreen.Children.Add(new UCProductDetail(item));
+                WorkScreen.Children.Add(new UCProductDetail(item, ref _orders));
             }
         }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var item = (sender as FrameworkElement).DataContext;
+
+            int index = dataListView.Items.IndexOf(item);
+
+            bool flag = true;
+            var product = item as PRODUCT;
+            foreach (var o in _orders)
+            {
+                if (product.ProductID == o.ProductID)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag)
+            {
+                var order = new ORDER_PRODUCT()
+                {
+                    ProductID = product.ProductID,
+                    Quantity = 1
+                };
+                _orders.Add(order);
+            }
+            dataListView.Items.Refresh();
+        }
+
+
     }
 }

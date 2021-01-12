@@ -71,7 +71,7 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:Name="PagesViewDataTemplate">
                                 <DockPanel LastChildFill="True">
                                     <Grid Height="150" DockPanel.Dock="Top">
                                         <Border CornerRadius="5">
@@ -87,9 +87,10 @@
                                             </Label.Content>
                                         </Label>
                                         <TextBlock Text="{Binding Price, Converter={StaticResource PriceConverter}}" FontSize="18" Foreground="Black" TextWrapping="Wrap" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Justify"/>
-                                        <Border x:Name="OrderButtonBackground"  BorderThickness="0" Background="#dcdcdc" HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="5">
-                                            <Button x:Name="OrderButton" Click="OrderButton_Click" Content="MUA HÀNG" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#7e0509" FontSize="16" Padding="8" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                                        <Border x:Name="OrderButtonBackground" BorderThickness="0" Background="#dcdcdc" HorizontalAlignment="Right" VerticalAlignment="Bottom" CornerRadius="5">
+                                            <Button x:Name="OrderButton" Click="OrderButton_Click"  Content="Mua Hàng" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#7e0509" FontSize="18" Padding="5" Background="{x:Null}" BorderBrush="{x:Null}"/>
                                         </Border>
+                                        
                                     </StackPanel>
                                 </DockPanel>
                             </DataTemplate>

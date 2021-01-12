@@ -11,7 +11,7 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignPaper}"
+             Background="Transparent"
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="600" d:DesignWidth="1290" Loaded="UserControl_Loaded">
     <DockPanel x:Name="WorkScreen" LastChildFill="True">

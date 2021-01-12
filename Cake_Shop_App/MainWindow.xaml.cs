@@ -18,13 +18,16 @@ namespace Cake_Shop_App
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
         }
-
+        List<ORDER_PRODUCT> _orders = new List<ORDER_PRODUCT>();
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -50,25 +53,6 @@ namespace Cake_Shop_App
             }
         }
 
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (mainWindow.ActualWidth == 1400)
-                {
-                    this.WindowState = WindowState.Maximized;
-                }
-                else
-                {
-                    this.WindowState = WindowState.Normal;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }   
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var converter = new System.Windows.Media.BrushConverter();
@@ -79,7 +63,7 @@ namespace Cake_Shop_App
             ProductButton.Foreground = fore;
             ProductButton.BorderBrush = border;
             WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCProducts());
+            WorkScreen.Children.Add(new UCProducts(ref _orders));
         }
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
@@ -103,7 +87,7 @@ namespace Cake_Shop_App
             ListButton.Foreground = black;
             ListButton.BorderBrush = border;
             WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCProducts());
+            WorkScreen.Children.Add(new UCProducts(ref _orders));
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -181,12 +165,14 @@ namespace Cake_Shop_App
         private void CartButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#2188fb");
+            var border = (Brush)converter.ConvertFromString("#e5e5e5");
+            var white = (Brush)converter.ConvertFromString("white");
             var black = (Brush)converter.ConvertFromString("black");
             var transparent = (Brush)converter.ConvertFromString("Transparent");
-            var border = (Brush)converter.ConvertFromString("#e5e5e5");
-            ProductButton.Background = transparent;
-            ProductButton.Foreground = black;
-            ProductButton.BorderBrush = border;
+            ProductButton.Background = brush;
+            ProductButton.Foreground = white;
+            ProductButton.BorderBrush = transparent;
             CreateButton.Background = transparent;
             CreateButton.Foreground = black;
             CreateButton.BorderBrush = border;
@@ -197,7 +183,7 @@ namespace Cake_Shop_App
             ListButton.Foreground = black;
             ListButton.BorderBrush = border;
             WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCCart());
+            WorkScreen.Children.Add(new UCCart(ref _orders));
 
         }
     }

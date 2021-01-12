@@ -11,7 +11,7 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="Transparent"
+             Background="white"
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="600" d:DesignWidth="1290" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <DockPanel x:Name="WorkScreen" LastChildFill="True">
@@ -48,11 +48,11 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.Column="1" Margin="10,10,10,5">
-                    <TextBox x:Name="tbCategory" FontSize="20" Width="470" Text="{Binding CategoryName}" HorizontalAlignment="Left"  BorderThickness="0" materialDesign:HintAssist.Hint="Danh mục" materialDesign:HintAssist.IsFloating="True" materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TextFieldAssist.HasOutlinedTextField="True" materialDesign:TextFieldAssist.TextFieldCornerRadius="2" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"/>
+                    <TextBox x:Name="tbCategory" FontSize="20" Width="470" Text="{Binding CategoryName}" IsReadOnly="True" HorizontalAlignment="Left"  BorderThickness="0" materialDesign:HintAssist.Hint="Danh mục" materialDesign:HintAssist.IsFloating="True" materialDesign:TextFieldAssist.HasOutlinedTextField="True" materialDesign:TextFieldAssist.TextFieldCornerRadius="2" materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"/>
 
                     <DockPanel HorizontalAlignment="Right">
                             <StackPanel Orientation="Horizontal">
-                            <ComboBox Name="cbCategory" SelectionChanged="cbCategory_SelectionChanged" HorizontalContentAlignment="Center" MinWidth="140" MinHeight="54" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="50" materialDesign:HintAssist.Hint="{Binding CategoryName}">
+                                <ComboBox Name="cbCategory" SelectionChanged="cbCategory_SelectionChanged"  HorizontalContentAlignment="Center" MinWidth="140" MinHeight="54" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="50" materialDesign:HintAssist.Hint="{Binding CategoryName}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding CategoryName}" FontSize="15"/>
