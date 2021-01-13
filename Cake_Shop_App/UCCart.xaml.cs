@@ -30,7 +30,7 @@ namespace Cake_Shop_App
         ObservableCollection<PRODUCT> _products;
         List<ORDER_PRODUCT> _orders;
         int? _totalCash;
-        int? urserID;
+        int? userID;
         int? orderID;
         double totalCash;
         List<USER> _users;
@@ -166,7 +166,7 @@ namespace Cake_Shop_App
                         if (user.UserPhone == tbUserPhone.Text)
                         {
                             flag = false;
-                            urserID = user.UserID;
+                            userID = user.UserID;
                             break;
                         }
                     }
@@ -181,19 +181,20 @@ namespace Cake_Shop_App
                         context.USERS.Add(newUser);
                         context.SaveChanges();
                         var user = (from s in context.USERS where s.UserPhone == tbUserPhone.Text select s).Single();
-                        urserID = user.UserID;
+                        userID = user.UserID;
                     }
 
-                    if(urserID.HasValue)
+                    if(userID.HasValue)
                     {
+                        DateTime Date = localDate;
                         var newOrder = new ORDER()
                         {
-                            UserID = urserID,
-                            Date = localDate
+                            UserID = userID,
+                            Date = Date
                         };
                         context.ORDERS.Add(newOrder);
                         context.SaveChanges();
-                       // var order = (from s in context.ORDERS where s.Date == newOrder.Date select s).Single();
+                        var order = (from s in context.ORDERS where s.UserID == userID select s).ToList().Last();
                         orderID = order.OrderID;
                     }
                    
@@ -205,9 +206,12 @@ namespace Cake_Shop_App
                             context.ORDER_PRODUCT.Add(detailOrder);
                             context.SaveChanges();
                         }
+                        _orders.Clear();
                     }
-
                 }
+                
+                WorkScreen.Children.Clear();
+                WorkScreen.Children.Add(new UCProducts(ref _orders));
             }
         }
 

@@ -51,11 +51,9 @@ C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\EntityFramework.SqlServ
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\EntityFramework.xml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\Cake_Shop_App_Content.g.cs
-C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCListOrders.g.cs
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCNewProduct.g.cs
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCProducts.g.cs
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCStatisTical.g.cs
-C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCListOrders.baml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCNewProduct.baml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCProducts.baml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCStatisTical.baml
@@ -66,3 +64,9 @@ C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCCart.g.cs
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCCart.baml
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCEditProduct.g.cs
 C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\obj\Debug\UCEditProduct.baml
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.dll
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.pdb
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.xml
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\vongo\Desktop\Cake_Shop\Cake_Shop_App\bin\Debug\LiveCharts.Wpf.xml

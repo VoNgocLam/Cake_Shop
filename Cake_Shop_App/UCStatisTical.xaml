@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Cake_Shop_App"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -13,8 +14,55 @@
             TextOptions.TextRenderingMode="Auto"
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="{DynamicResource MaterialDesignFont}"
-            d:DesignHeight="600" d:DesignWidth="1290">
-    <Grid>
-            
-    </Grid>
+            d:DesignHeight="600" d:DesignWidth="1290" Loaded="UserControl_Loaded">
+    <DockPanel Name="WorkScreen" LastChildFill="True">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <DockPanel LastChildFill="False" Width="570">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Thống kê doanh thu theo tháng trong năm " Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="#8d908d" FontWeight="DemiBold"/>
+                        <TextBlock Name ="tbYear" Text="{Binding}" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="#8d908d" FontWeight="DemiBold"/>
+                    </StackPanel>
+                    <Grid Width="560" Margin="10">
+                        <lvc:CartesianChart Name="_CartesianChart" Series="{Binding Data1}" FontSize="18" FontWeight="Bold">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Labels="{Binding Labels}">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>                   
+                </DockPanel>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <DockPanel LastChildFill="True">
+                    <StackPanel  Orientation="Horizontal" Height="50" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="0,50,0,0">
+                        <TextBlock Text="Năm" VerticalAlignment="Center" Margin="10,0,20,0" FontWeight="DemiBold" FontSize="15"/>
+                        <ComboBox Name="cbYear" SelectionChanged="cbYear_SelectionChanged" materialDesign:HintAssist.Hint="2021"/>
+                    </StackPanel>                    
+                </DockPanel> 
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <DockPanel LastChildFill="True">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Thống kê doanh thu theo loại bánh trong năm " Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="#8d908d" FontWeight="DemiBold"/>
+                        <TextBlock Name ="tbYears" Text="{Binding}" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="20" Foreground="#8d908d" FontWeight="DemiBold"/>
+                    </StackPanel>
+                    <lvc:PieChart Margin="0,10,0,0" Name="_pieChart" Series="{Binding Data2}" LegendLocation="Bottom"/>
+                </DockPanel>               
+            </Grid>
+        </Grid>
+    </DockPanel>
 </UserControl>

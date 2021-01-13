@@ -83,9 +83,6 @@ namespace Cake_Shop_App
             StatisticalButton.Background = transparent;
             StatisticalButton.Foreground = black;
             StatisticalButton.BorderBrush = border;
-            ListButton.Background = transparent;
-            ListButton.Foreground = black;
-            ListButton.BorderBrush = border;
             WorkScreen.Children.Clear();
             WorkScreen.Children.Add(new UCProducts(ref _orders));
         }
@@ -107,9 +104,6 @@ namespace Cake_Shop_App
             StatisticalButton.Background = transparent;
             StatisticalButton.Foreground = black;
             StatisticalButton.BorderBrush = border;
-            ListButton.Background = transparent;
-            ListButton.Foreground = black;
-            ListButton.BorderBrush = border;
             WorkScreen.Children.Clear();
             WorkScreen.Children.Add(new UCNewProduct());
         }
@@ -131,37 +125,10 @@ namespace Cake_Shop_App
             StatisticalButton.Background = brush;
             StatisticalButton.Foreground = white;
             StatisticalButton.BorderBrush = transparent;
-            ListButton.Background = transparent;
-            ListButton.Foreground = black;
-            ListButton.BorderBrush = border;
             WorkScreen.Children.Clear();
             WorkScreen.Children.Add(new UCStatisTical());
         }
-
-        private void ListButton_Click(object sender, RoutedEventArgs e)
-        {
-            var converter = new System.Windows.Media.BrushConverter();
-            var brush = (Brush)converter.ConvertFromString("#2188fb");
-            var border = (Brush)converter.ConvertFromString("#e5e5e5");
-            var white = (Brush)converter.ConvertFromString("white");
-            var black = (Brush)converter.ConvertFromString("black");
-            var transparent = (Brush)converter.ConvertFromString("Transparent");
-            ProductButton.Background = transparent;
-            ProductButton.Foreground = black;
-            ProductButton.BorderBrush = border;
-            CreateButton.Background = transparent;
-            CreateButton.Foreground = black;
-            CreateButton.BorderBrush = border;
-            StatisticalButton.Background = transparent;
-            StatisticalButton.Foreground = black;
-            StatisticalButton.BorderBrush = border;
-            ListButton.Background = brush;
-            ListButton.Foreground = white;
-            ListButton.BorderBrush = transparent;
-            WorkScreen.Children.Clear();
-            WorkScreen.Children.Add(new UCListOrders());
-        }
-
+              
         private void CartButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var converter = new System.Windows.Media.BrushConverter();
@@ -178,10 +145,7 @@ namespace Cake_Shop_App
             CreateButton.BorderBrush = border;
             StatisticalButton.Background = transparent;
             StatisticalButton.Foreground = black;
-            StatisticalButton.BorderBrush = border;
-            ListButton.Background = transparent;
-            ListButton.Foreground = black;
-            ListButton.BorderBrush = border;
+            StatisticalButton.BorderBrush = border;          
             WorkScreen.Children.Clear();
             WorkScreen.Children.Add(new UCCart(ref _orders));
 
