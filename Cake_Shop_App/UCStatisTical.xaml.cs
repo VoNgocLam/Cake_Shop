@@ -47,6 +47,8 @@ namespace Cake_Shop_App
         }
         public string[] Labels { get; set; }
         public SeriesCollection Data1 { get; set; }
+        public SeriesCollection Data2 { get; set; }
+
         List<int> RevenuePerMonth;
         List<ORDER_PRODUCT> _listDetailOrders;
         int iYear;
@@ -80,7 +82,20 @@ namespace Cake_Shop_App
                         _listDetailOrders.Add(detailOrder);
                     }
                 }
-                var query = (from s in _listDetailOrders group s by s.ProductID into g select new { productID = g.Key, Quantity = g.Sum(s => s.Quantity)}).ToList(); 
+                var queryBasedOnCategory = (from s in _listDetailOrders group s by new { s.ProductID, s.SinglePrice } into g orderby g.Key.ProductID select new { productID = g.Key.ProductID, Revenue = g.Sum(s => s.Quantity)*g.Key.SinglePrice}).ToList();
+                
+                Data2 = new SeriesCollection() { };
+                
+                foreach (var category in queryBasedOnCategory)
+                {
+                    var productName = (from s in context.PRODUCTS where s.ProductID == category.productID select s).Single();
+                    PieSeries Pie = new PieSeries()
+                    {
+                        Title = $"{productName.ProductName}",
+                        Values = new ChartValues<int> { category.Revenue.Value }
+                    };
+                    Data2.Add(Pie);
+                }
             }
 
             ColumnSeries c = new ColumnSeries()
@@ -96,12 +111,16 @@ namespace Cake_Shop_App
             Data1.Add(c);
             Labels = new[] { "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" };
             tbYear.Text = "2021";
+            tbYears.Text = "2021";
             DataContext = this;
         }
 
         private void cbYear_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Data2 = new SeriesCollection() { };
+            _listDetailOrders = new List<ORDER_PRODUCT>();
             tbYear.Text = cbYear.SelectedItem as String;
+            tbYears.Text = cbYear.SelectedItem as String;
             iYear = int.Parse(cbYear.SelectedItem as String);
             RevenuePerMonth = new List<int>();
             using (var context = new cakeshopdatabaseEntities1())
@@ -120,7 +139,27 @@ namespace Cake_Shop_App
                     }
                     RevenuePerMonth.Add(totalCash.Value);
                 }
+                var queryOrders = (from s in context.ORDERS where s.Date.Value.Year == iYear select s).ToList();
+                foreach (var Order in queryOrders)
+                {
+                    var queryDetailOrder = (from s in context.ORDER_PRODUCT where s.OrderID == Order.OrderID select s).ToList();
+                    foreach (var detailOrder in queryDetailOrder)
+                    {
+                        _listDetailOrders.Add(detailOrder);
+                    }
+                }
+                var queryBasedOnCategory = (from s in _listDetailOrders group s by new { s.ProductID, s.SinglePrice } into g orderby g.Key.ProductID select new { productID = g.Key.ProductID, Revenue = g.Sum(s => s.Quantity) * g.Key.SinglePrice }).ToList();
 
+                foreach (var category in queryBasedOnCategory)
+                {
+                    var productName = (from s in context.PRODUCTS where s.ProductID == category.productID select s).Single();
+                    PieSeries Pie = new PieSeries()
+                    {
+                        Title = $"{productName.ProductName}",
+                        Values = new ChartValues<int> { category.Revenue.Value }
+                    };
+                    Data2.Add(Pie);
+                }
             }
 
             ColumnSeries c = new ColumnSeries()
@@ -128,18 +167,22 @@ namespace Cake_Shop_App
                 Title = "",
                 Values = new ChartValues<int> { }
             };
+
             foreach (var revenue in RevenuePerMonth)
             {
                 c.Values.Add(revenue);
             }
+
             Data1 = new SeriesCollection() { };
             Data1.Add(c);
+
             Thread thread = new Thread(delegate ()
             {
                 // Đưa lên UI
                 Dispatcher.Invoke(() =>
                 {
                     _CartesianChart.Series = Data1;
+                    _pieChart.Series = Data2;
                 });
             });
             thread.Start();
